@@ -1,16 +1,18 @@
 'use client';
 
-import * as React from 'react';
+import { useEffect } from 'react';
 import { useClerk } from '@clerk/nextjs';
 
 export default function SSOCallback({ searchParams }: any) {
   const { handleRedirectCallback } = useClerk();
-  console.log(searchParams);
-  debugger;
 
-  React.useEffect(() => {
-    debugger;
-    void handleRedirectCallback(searchParams);
+  useEffect(() => {
+    async function fetchData() {
+      await handleRedirectCallback({
+        redirectUrl: '/onboarding',
+      });
+    }
+    fetchData();
   }, [searchParams, handleRedirectCallback]);
 
   return (
